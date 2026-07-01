@@ -1,0 +1,94 @@
+================================================================
+                        PURCHASE ORDER
+================================================================
+
+PO Number:      PO-2024-0002
+PO Date:        July 1, 2024
+Customer ID:    CUST-002
+Currency:       USD
+
+
+----------------------------------------------------------------
+FROM (BUYER):
+----------------------------------------------------------------
+GLOBEX CORPORATION
+Attn: Purchasing Department
+800 Commerce Blvd, Floor 12
+Chicago, IL 60601
+United States
+Email: purchasing@globexcorp.com
+Phone: +1 (312) 555-0198
+
+
+----------------------------------------------------------------
+TO (VENDOR):
+----------------------------------------------------------------
+TechSupply Solutions Ltd.
+Warehouse & Fulfillment Center
+4500 Industrial Parkway
+Dallas, TX 75247
+United States
+
+
+----------------------------------------------------------------
+DELIVERY (SHIP TO) ADDRESS:
+----------------------------------------------------------------
+GLOBEX CORPORATION — Receiving Bay 3
+800 Commerce Blvd
+Chicago, IL 60601
+United States
+
+
+----------------------------------------------------------------
+ORDER DETAILS:
+----------------------------------------------------------------
+Requested Delivery Date:  July 20, 2024
+Shipping Terms:          FOB Destination
+Payment Terms:           Net 30
+
+
+----------------------------------------------------------------
+LINE ITEMS:
+----------------------------------------------------------------
+Item #  | SKU       | Description                  | Qty | Unit Price | Line Total
+--------|-----------|------------------------------|-----|------------|------------
+1       | SKU-1003  | 27-inch 4K Monitor           |  40 | $250.00    | $10,000.00
+2       | SKU-1002  | Mechanical Keyboard RGB       |  20 | $59.49     | $1,189.00
+3       | SKU-9999  | Wireless Charging Pad Pro     |   5 | $34.99     | $174.95
+
+
+----------------------------------------------------------------
+ORDER SUMMARY:
+----------------------------------------------------------------
+Subtotal:                  $11,363.95
+Sales Tax (8.25%):         $937.53
+Shipping & Handling:       $120.00
+----------------------------     ----------
+GRAND TOTAL:               $12,421.48
+
+
+----------------------------------------------------------------
+TERMS & CONDITIONS:
+----------------------------------------------------------------
+1. Please confirm receipt of this Purchase Order within 2 business days.
+2. Goods must be delivered on or before the requested delivery date.
+3. Include PO Number (PO-2024-0002) on all correspondence, invoices,
+   packing slips, and shipping labels.
+4. Damaged or incorrect items may be returned for full credit within
+   14 days of receipt.
+5. Payment will be made within 30 days of invoice (Net 30).
+
+
+----------------------------------------------------------------
+Authorized By:
+----------------------------------------------------------------
+
+Name:      Marcus Webb
+Title:     VP of Procurement
+Signature: _______________________________
+Date:      _______________________________
+
+
+================================================================
+                  END OF PURCHASE ORDER
+================================================================

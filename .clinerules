@@ -1,0 +1,14 @@
+# Project: Quote-to-Order AI Agent
+
+## Stack
+- Language: Python 3.10+
+- UI: Streamlit
+- AI Brain: Gemini API (google-generativeai)
+- Data: Local CSV files only (no external database)
+
+## Rules
+1. No new libraries without approval
+2. Keep code simple and modular
+3. One file = one responsibility
+4. Never break working code
+5. If unclear, ask before implementing

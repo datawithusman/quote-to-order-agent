@@ -1,0 +1,93 @@
+================================================================
+                        PURCHASE ORDER
+================================================================
+
+PO Number:      PO-2024-0001
+PO Date:        June 30, 2024
+Customer ID:    C001
+Currency:       USD
+
+
+----------------------------------------------------------------
+FROM (BUYER):
+----------------------------------------------------------------
+ACME CORP
+Attn: Procurement Department
+1200 Innovation Drive, Suite 400
+Austin, TX 78701
+United States
+Email: procurement@acmecorp.com
+Phone: +1 (512) 555-0142
+
+
+----------------------------------------------------------------
+TO (VENDOR):
+----------------------------------------------------------------
+TechSupply Solutions Ltd.
+Warehouse & Fulfillment Center
+4500 Industrial Parkway
+Dallas, TX 75247
+United States
+
+
+----------------------------------------------------------------
+DELIVERY (SHIP TO) ADDRESS:
+----------------------------------------------------------------
+ACME CORP — Receiving Dock B
+1200 Innovation Drive
+Austin, TX 78701
+United States
+
+
+----------------------------------------------------------------
+ORDER DETAILS:
+----------------------------------------------------------------
+Requested Delivery Date:  July 15, 2024
+Shipping Terms:          FOB Destination
+Payment Terms:           Net 30
+
+
+----------------------------------------------------------------
+LINE ITEMS:
+----------------------------------------------------------------
+Item #  | SKU       | Description             | Qty | Unit Price | Line Total
+--------|-----------|-------------------------|-----|------------|------------
+1       | WM-001    | Wireless Mouse          | 10  | $12.99     | $129.90
+2       | MN-003    | 4K Monitor              |  5  | $289.00    | $1,445.00
+
+
+----------------------------------------------------------------
+ORDER SUMMARY:
+----------------------------------------------------------------
+Subtotal:                  $1,574.90
+Sales Tax (8.25%):         $129.93
+Shipping & Handling:       $45.00
+----------------------------     ----------
+GRAND TOTAL:               $1,749.83
+
+
+----------------------------------------------------------------
+TERMS & CONDITIONS:
+----------------------------------------------------------------
+1. Please confirm receipt of this Purchase Order within 2 business days.
+2. Goods must be delivered on or before the requested delivery date.
+3. Include PO Number (PO-2024-0001) on all correspondence, invoices,
+   packing slips, and shipping labels.
+4. Damaged or incorrect items may be returned for full credit within
+   14 days of receipt.
+5. Payment will be made within 30 days of invoice (Net 30).
+
+
+----------------------------------------------------------------
+Authorized By:
+----------------------------------------------------------------
+
+Name:      Jordan Ellis
+Title:     Procurement Manager
+Signature: _______________________________
+Date:      _______________________________
+
+
+================================================================
+                  END OF PURCHASE ORDER
+================================================================

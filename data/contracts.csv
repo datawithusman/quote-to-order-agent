@@ -1,0 +1,7 @@
+customer_id,customer_name,agreed_discount,lead_time_days
+CUST-001,Acme Industries,10,7
+CUST-002,Globex Corporation,15,14
+CUST-003,Initech LLC,5,5
+CUST-004,Umbrella Logistics,12,10
+CUST-005,Stark Solutions,20,21
+C001,ACME CORP,5,14

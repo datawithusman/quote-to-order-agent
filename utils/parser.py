@@ -94,23 +94,51 @@ def extract_po_data(po_text: str) -> dict:
         }
     """
 
-    # Instruction for GLM: extract exactly these fields, output as JSON.
     extraction_prompt = f"""
-You are a data extraction assistant for a Quote-to-Order system.
+You are an expert Purchase Order analyst. Extract ALL relevant business information from the PO below.
 
-Read the Purchase Order (PO) text below and extract the following fields:
-  - customer_id            (string)
-  - customer_name          (string)
-  - po_number              (string)
-  - requested_delivery_date (string, as written in the PO)
-  - line_items             (list of objects)
-        each object: sku (string), quantity (integer), unit_price (number)
+The PO may be written in ANY language (Arabic, Chinese, German, Urdu, French, Spanish, etc.).
+Extract everything and return ALL field names in English.
+
+Return this exact JSON structure (use null for missing fields):
+{{
+  "language": "detected language of the PO",
+  "po_number": "PO reference number",
+  "po_date": "date as written",
+  "currency": "currency code (USD, EUR, SAR, PKR, GBP, etc.)",
+  "customer_id": "buyer ID or code if present",
+  "customer_name": "buyer company name",
+  "customer_address": "buyer full address",
+  "customer_email": "buyer email if present",
+  "customer_phone": "buyer phone if present",
+  "vendor_name": "seller/vendor company name",
+  "ship_to_address": "delivery/shipping address",
+  "requested_delivery_date": "delivery date as written",
+  "payment_terms": "e.g. Net 30, COD, advance, etc.",
+  "shipping_terms": "e.g. FOB, CIF, DDP, etc.",
+  "subtotal": numeric subtotal or null,
+  "tax_amount": numeric tax or null,
+  "shipping_cost": numeric shipping cost or null,
+  "grand_total": numeric grand total or null,
+  "special_instructions": "any notes, conditions, or special instructions",
+  "line_items": [
+    {{
+      "line_number": integer or null,
+      "sku": "product code / item number / SKU",
+      "description": "product description",
+      "quantity": numeric quantity,
+      "unit_of_measure": "pcs / kg / meters / boxes / liters / etc.",
+      "unit_price": numeric unit price,
+      "line_total": numeric line total or null
+    }}
+  ],
+  "additional_fields": {{}}
+}}
 
 Rules:
-  1. Return ONLY valid JSON. No extra text, no markdown fences.
-  2. If a field is missing, use null.
-  3. Quantities must be integers (no units like "pcs").
-  4. Unit prices must be numbers (no currency symbols).
+  1. Return ONLY valid JSON. No markdown fences, no extra text.
+  2. All prices and quantities must be numbers, no symbols.
+  3. If you find any important fields not in the schema, put them in additional_fields.
 
 Purchase Order text:
 \"\"\"
@@ -183,68 +211,81 @@ def validate_po(extracted_data: dict) -> dict:
     """
 
     # --- Load reference data -------------------------------------------------
-    products = pd.read_csv(PRODUCTS_CSV)
+    products  = pd.read_csv(PRODUCTS_CSV)
     contracts = pd.read_csv(CONTRACTS_CSV)
 
-    # Index products by SKU for quick lookup.
     products_by_sku = products.set_index("sku")
 
-    flags = []          # Global list of all exceptions/warnings.
-    validated_items = []  # Per-item results.
+    flags          = []
+    validated_items = []
+
+    # --- Resolve customer discount ------------------------------------------
+    customer_id  = extracted_data.get("customer_id")
+    discount_pct = 0.0
+    customer_found = False
+
+    if customer_id:
+        customer_rows = contracts[contracts["customer_id"] == customer_id]
+        if not customer_rows.empty:
+            customer_found = True
+            discount_pct = float(customer_rows.iloc[0].get("agreed_discount", 0) or 0)
+        else:
+            flags.append(f"Customer ID '{customer_id}' not found in contracts")
 
     # --- Validate each line item --------------------------------------------
     line_items = extracted_data.get("line_items", []) or []
 
     for item in line_items:
-        sku = item.get("sku")
-        quantity = item.get("quantity")
+        sku        = item.get("sku")
+        quantity   = item.get("quantity")
         unit_price = item.get("unit_price")
 
         item_issues = []
 
-        # (a) Does the SKU exist in the catalog?
-        if sku not in products_by_sku.index:
-            item_issues.append(f"SKU {sku} not found in product catalog")
-
+        if not sku:
+            item_issues.append("Missing SKU")
+        elif sku not in products_by_sku.index:
+            item_issues.append(f"SKU '{sku}' not found in product catalog")
         else:
-            product_row = products_by_sku.loc[sku]
+            product_row    = products_by_sku.loc[sku]
+            catalog_price  = round(float(product_row["price"]), 2)
+            expected_price = round(catalog_price * (1 - discount_pct / 100), 2)
+            po_price       = round(float(unit_price), 2)
 
-            # (b) Does the price match? (rounded to 2 decimals for tolerance)
-            catalog_price = round(float(product_row["price"]), 2)
-            po_price = round(float(unit_price), 2)
+            if po_price != expected_price:
+                if discount_pct > 0:
+                    item_issues.append(
+                        f"Price mismatch for {sku}: PO=${po_price:.2f}, "
+                        f"Expected=${expected_price:.2f} "
+                        f"(catalog=${catalog_price:.2f} minus {discount_pct:.0f}% discount)"
+                    )
+                else:
+                    item_issues.append(
+                        f"Price mismatch for {sku}: PO=${po_price:.2f}, Catalog=${catalog_price:.2f}"
+                    )
 
-            if catalog_price != po_price:
-                item_issues.append(
-                    f"Price mismatch for {sku}: PO=${po_price:.2f}, Catalog=${catalog_price:.2f}"
-                )
-
-            # (c) Is stock sufficient for the requested quantity?
             available_stock = int(product_row["stock"])
-            if quantity > available_stock:
+            if quantity and quantity > available_stock:
                 item_issues.append(
                     f"Insufficient stock for {sku}: requested {quantity}, available {available_stock}"
                 )
 
-        # Record the outcome for this item.
         status = "valid" if not item_issues else "invalid"
         validated_items.append({
-            "sku": sku,
-            "quantity": quantity,
-            "unit_price": unit_price,
-            "status": status,
-            "issues": item_issues,
+            "sku":         sku,
+            "description": item.get("description"),
+            "quantity":    quantity,
+            "uom":         item.get("unit_of_measure"),
+            "unit_price":  unit_price,
+            "line_total":  item.get("line_total"),
+            "status":      status,
+            "issues":      item_issues,
         })
-
-        # Merge per-item issues into the global flags list.
         flags.extend(item_issues)
 
-    # --- Validate customer --------------------------------------------------
-    customer_id = extracted_data.get("customer_id")
-
-    if customer_id not in contracts["customer_id"].values:
-        flags.append(f"Customer ID {customer_id} not found in contracts")
-
     return {
-        "validated_items": validated_items,
-        "flags": flags,
+        "validated_items":  validated_items,
+        "flags":            flags,
+        "discount_applied": discount_pct,
+        "customer_found":   customer_found,
     }

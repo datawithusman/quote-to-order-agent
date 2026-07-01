@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', 'Tahoma', sans-serif;
+    font-size: 13px;
+    color: #222;
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 0 20px;
+    direction: rtl;
+  }
+  h1 {
+    text-align: center;
+    font-size: 22px;
+    letter-spacing: 1px;
+    border-top: 2px solid #222;
+    border-bottom: 2px solid #222;
+    padding: 10px 0;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-weight: bold;
+    border-bottom: 1px solid #999;
+    padding-bottom: 4px;
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #555;
+  }
+  .row { display: flex; gap: 40px; margin-bottom: 6px; flex-direction: row-reverse; }
+  .label { color: #555; width: 180px; text-align: right; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th {
+    background: #1a1f2e;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: right;
+    font-size: 12px;
+  }
+  td { padding: 8px 10px; border-bottom: 1px solid #e5e7eb; text-align: right; }
+  tr:nth-child(even) td { background: #f9fafb; }
+  .totals { margin-top: 16px; text-align: left; }
+  .totals table { width: 300px; margin-right: auto; }
+  .totals td { border: none; padding: 4px 8px; }
+  .totals .grand { font-weight: bold; font-size: 15px; border-top: 2px solid #222; }
+  .footer { margin-top: 40px; display: flex; justify-content: space-between; flex-direction: row-reverse; }
+  .sig-line { border-top: 1px solid #222; width: 200px; margin-top: 40px; padding-top: 4px; font-size: 12px; color: #555; text-align: right; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .info-block { line-height: 1.8; }
+  .info-block strong { display: block; color: #444; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<h1>أمر شراء &nbsp;|&nbsp; PURCHASE ORDER</h1>
+
+<div class="row">
+  <div><span class="label">رقم أمر الشراء:</span> <strong>PO-2024-0004</strong></div>
+  <div><span class="label">التاريخ:</span> 1 يوليو 2024</div>
+</div>
+<div class="row">
+  <div><span class="label">رقم العميل:</span> CUST-004</div>
+  <div><span class="label">العملة:</span> دولار أمريكي (USD)</div>
+</div>
+
+<div class="section-title">المشتري &nbsp;|&nbsp; FROM (BUYER)</div>
+<div class="info-grid">
+  <div class="info-block">
+    <strong>اسم الشركة</strong>
+    شركة أمبريلا للخدمات اللوجستية<br>
+    Umbrella Logistics Co.
+  </div>
+  <div class="info-block">
+    <strong>العنوان</strong>
+    شارع الملك فهد، الرياض 11564<br>
+    المملكة العربية السعودية
+  </div>
+</div>
+<div style="margin-top:8px;">
+  البريد الإلكتروني: procurement@umbrella-log.sa &nbsp;|&nbsp; الهاتف: +966 11 555 0234
+</div>
+
+<div class="section-title">المورد &nbsp;|&nbsp; TO (VENDOR)</div>
+<div>
+  TechSupply Solutions Ltd.<br>
+  4500 Industrial Parkway, Dallas, TX 75247, United States
+</div>
+
+<div class="section-title">عنوان التسليم &nbsp;|&nbsp; SHIP TO</div>
+<div>
+  شركة أمبريلا للخدمات اللوجستية — مستودع الاستلام أ<br>
+  المنطقة الصناعية، الرياض، المملكة العربية السعودية
+</div>
+
+<div class="section-title">تفاصيل الطلب &nbsp;|&nbsp; ORDER DETAILS</div>
+<div class="row">
+  <div><span class="label">تاريخ التسليم المطلوب:</span> 25 يوليو 2024</div>
+  <div><span class="label">شروط الشحن:</span> FOB Destination</div>
+</div>
+<div class="row">
+  <div><span class="label">شروط الدفع:</span> صافي 30 يوم (Net 30)</div>
+</div>
+
+<div class="section-title">بنود الطلب &nbsp;|&nbsp; LINE ITEMS</div>
+<table>
+  <thead>
+    <tr>
+      <th>إجمالي السطر</th>
+      <th>سعر الوحدة</th>
+      <th>الكمية</th>
+      <th>الوصف</th>
+      <th>رمز المنتج (SKU)</th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$259.80</td>
+      <td>$12.99</td>
+      <td>20</td>
+      <td>ماوس لاسلكي بصري &nbsp;|&nbsp; Wireless Optical Mouse</td>
+      <td>SKU-1001</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>$1,189.00</td>
+      <td>$59.49</td>
+      <td>20</td>
+      <td>لوحة مفاتيح ميكانيكية RGB &nbsp;|&nbsp; Mechanical Keyboard RGB</td>
+      <td>SKU-1002</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>$2,312.00</td>
+      <td>$289.00</td>
+      <td>8</td>
+      <td>شاشة 4K مقاس 27 بوصة &nbsp;|&nbsp; 27-inch 4K Monitor</td>
+      <td>SKU-1003</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>$899.75</td>
+      <td>$119.95</td>
+      <td>5</td>
+      <td>سماعات إلغاء الضوضاء &nbsp;|&nbsp; Noise Cancelling Headset</td>
+      <td>SKU-1005</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>$500.00</td>
+      <td>$100.00</td>
+      <td>5</td>
+      <td>كاميرا ويب بدقة 4K &nbsp;|&nbsp; 4K Webcam Pro</td>
+      <td>SKU-7777</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="totals">
+  <table>
+    <tr><td>المجموع الفرعي (Subtotal):</td><td>$5,160.55</td></tr>
+    <tr><td>ضريبة القيمة المضافة 15% (VAT 15%):</td><td>$774.08</td></tr>
+    <tr><td>الشحن والمناولة (Shipping):</td><td>$95.00</td></tr>
+    <tr class="grand"><td>الإجمالي الكلي (GRAND TOTAL):</td><td>$6,029.63</td></tr>
+  </table>
+</div>
+
+<div class="section-title">الشروط والأحكام &nbsp;|&nbsp; TERMS & CONDITIONS</div>
+<ol style="font-size:12px; color:#555; padding-right:18px; line-height:1.8;">
+  <li>يرجى تأكيد استلام أمر الشراء خلال يومي عمل.</li>
+  <li>يجب تسليم البضاعة في أو قبل تاريخ التسليم المطلوب.</li>
+  <li>يجب ذكر رقم أمر الشراء PO-2024-0004 في جميع المراسلات والفواتير.</li>
+  <li>يمكن إعادة البضائع التالفة أو الخاطئة خلال 14 يوماً من الاستلام.</li>
+  <li>سيتم السداد خلال 30 يوماً من تاريخ الفاتورة.</li>
+</ol>
+
+<div class="section-title">ملاحظات خاصة &nbsp;|&nbsp; SPECIAL INSTRUCTIONS</div>
+<div style="background:#f9fafb; padding:10px 14px; border-radius:6px; font-size:12px; color:#444; line-height:1.8;">
+  يرجى التواصل مع قسم اللوجستيات قبل الشحن للتنسيق.<br>
+  Please contact logistics department before shipment for coordination.<br>
+  جميع المنتجات يجب أن تكون مصحوبة بشهادة المنشأ.
+</div>
+
+<div class="footer">
+  <div>
+    <div class="sig-line">التوقيع المعتمد &nbsp;|&nbsp; Authorized Signature</div>
+  </div>
+  <div>
+    <div class="sig-line">الاسم: أحمد الزهراني، مدير المشتريات</div>
+  </div>
+</div>
+
+</body>
+</html>
